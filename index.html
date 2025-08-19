@@ -68,10 +68,10 @@
 
     <!-- Header -->
     <header class="header fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-gray-900 border-b border-gray-700/50 shadow-lg">
-      <nav class="navbar px-4 sm:px-6 lg:px-8">
+      <nav class="navbar px-4 sm:px-6 lg:px-8" id="main-nav">
         <!-- Logo -->
         <a href="#" 
-           class=" logo-container flex items-center space-x-3 transition-all duration-300 " 
+           class="logo logo-container flex items-center space-x-3 transition-all duration-300 " 
            onclick="showHome()" 
            title="AgentEQ Home">
           <div class="relative">
@@ -79,7 +79,7 @@
                  class="h-20 w-20 logo-img-large filter drop-shadow-lg transition-all duration-300" 
                  alt="AgentEQ Logo" />
           </div>
-          <span class="text-2xl siteName font-bold bg-gradient-to-r from-cyan-400 via-blue-700 to-purple-500 bg-clip-text text-transparent">
+          <span class="text-2xl siteName font-bold text-white ">
             Agent-EQ
           </span>
         </a>
@@ -89,7 +89,7 @@
           <li class="nav-item">
             <a href="#about" 
                onclick="showHome()" 
-               class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300 relative group font-medium"
+               class="nav-link text-white hover:text-cyan-400 transition-all duration-300 relative group font-medium"
                data-translate="about">
               About
               <span class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
@@ -98,7 +98,7 @@
           <li class="nav-item">
             <a href="#customers" 
                onclick="showHome()" 
-               class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300 relative group font-medium"
+               class="nav-link text-white hover:text-cyan-400 transition-all duration-300 relative group font-medium"
                data-translate="customers">
               Customers
               <span class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
@@ -107,7 +107,7 @@
           <li class="nav-item">
             <a href="#pricing" 
                onclick="showHome()" 
-               class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300 relative group font-medium"
+               class="nav-link text-white hover:text-cyan-400 transition-all duration-300 relative group font-medium"
                data-translate="pricing">
               Pricing
               <span class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
@@ -116,7 +116,7 @@
           <li class="nav-item">
             <a href="#contact" 
                onclick="showHome()" 
-               class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300 relative group font-medium"
+               class="nav-link text-white hover:text-cyan-400 transition-all duration-300 relative group font-medium"
                data-translate="contact">
               Contact
               <span class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
@@ -128,7 +128,7 @@
         <div class="header-actions flex items-center space-x-4">
           <!-- Guest State -->
           <div class="auth-buttons flex items-center space-x-3" id="auth-buttons">
-            <button class="lang-btn px-3 py-2 text-sm bg-gray-800 text-gray-300 rounded-lg border border-gray-600/50 hover:bg-gray-700 hover:text-white hover:border-gray-500 transition-all duration-300 backdrop-blur-sm"
+            <button class="lang-btn px-3 py-2 text-sm bg-gray-800 text-white rounded-lg border border-gray-600/50 hover:bg-gray-700  hover:border-gray-500 transition-all duration-300 backdrop-blur-sm"
                     id="lang-toggle"
                     onclick="toggleLanguage()">
               العربية
@@ -192,25 +192,25 @@
         <div class="px-4 py-4 space-y-3">
           <a href="#about" 
              onclick="showHome(); toggleMobileMenu();" 
-             class="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2"
+             class="block text-white hover:text-cyan-400 transition-colors duration-300 py-2"
              data-translate="about">
             About
           </a>
           <a href="#customers" 
              onclick="showHome(); toggleMobileMenu();" 
-             class="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2"
+             class="block text-white hover:text-cyan-400 transition-colors duration-300 py-2"
              data-translate="customers">
             Customers
           </a>
           <a href="#pricing" 
              onclick="showHome(); toggleMobileMenu();" 
-             class="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2"
+             class="block text-white hover:text-cyan-400 transition-colors duration-300 py-2"
              data-translate="pricing">
             Pricing
           </a>
           <a href="#contact" 
              onclick="showHome(); toggleMobileMenu();" 
-             class="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2"
+             class="block text-white hover:text-cyan-400 transition-colors duration-300 py-2"
              data-translate="contact">
             Contact
           </a>

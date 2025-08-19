@@ -216,6 +216,10 @@ header {
     display: none;
   }
 }
+.siteName {
+font-size: large;
+color: white !important;
+}
 /* Navigation container */
 .navbar {
   display: flex;
@@ -260,6 +264,7 @@ header {
   display: inline-block;
   font-weight: 500;
   padding: 0.5rem 0;
+  color: white !important;
   transition: all 0.3s ease;
 }
 
@@ -433,6 +438,7 @@ header {
   padding: 1rem;
   font-weight: 500;
   transition: all 0.3s ease;
+  color: white !important;
   border-bottom: 1px solid rgba(55, 65, 81, 0.3);
 }
 

@@ -45,7 +45,11 @@
   margin-right: 0;
   margin-left: .5rem;
 }
-
+#main-nav a.logo::before {
+  content: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
 /* =======================================================
    ADMIN — NAV
    ======================================================= */
