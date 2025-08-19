@@ -18,15 +18,35 @@
   --icon-color: #fff; /* white icons */
 }
 
+/* Navbar specific icon color adjustments */
+#main-nav a::before,
+.mobile-nav a::before,
+.nav-menu a::before,
+nav a::before {
+  --icon-color: #e2e8f0; /* light gray for better visibility */
+  background-color: var(--icon-color);
+  opacity: 1; /* Always visible, no hover needed */
+}
+
+#main-nav a:hover::before,
+.mobile-nav a:hover::before,
+.nav-menu a:hover::before,
+nav a:hover::before {
+  background-color: #06b6d4; /* cyan color on hover */
+  --icon-color: #06b6d4;
+}
+
 /* Base icon pseudo for links & buttons (BUTTONS DISABLED TO PREVENT FLOATING EFFECT) */
 #main-nav a::before,
+.mobile-nav a::before,
+.nav-menu a::before,
+nav a::before,
 .user-dropdown a::before,
 .user-dropdown button::before {
   content: "";
   display: inline-block;
   width: var(--icon-size);
   height: var(--icon-size);
-  background-color: var(--icon-color);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: contain;
@@ -35,17 +55,26 @@
   mask-position: center;
   margin-right: .5rem;
   vertical-align: -2px;
+  background-color: var(--icon-color);
+  opacity: 1; /* Always visible */
   /* Ensure inline alignment with text */
 }
 
 /* RTL nicety */
 [dir="rtl"] #main-nav a::before,
+[dir="rtl"] .mobile-nav a::before,
+[dir="rtl"] .nav-menu a::before,
+[dir="rtl"] nav a::before,
 [dir="rtl"] .user-dropdown a::before,
 [dir="rtl"] .user-dropdown button::before {
   margin-right: 0;
   margin-left: .5rem;
 }
-#main-nav a.logo::before {
+
+/* Ensure logo doesn't get icons */
+#main-nav a.logo::before,
+.nav-logo::before,
+.logo-container::before {
   content: none !important;
   -webkit-mask-image: none !important;
   mask-image: none !important;
@@ -135,22 +164,75 @@
 /* Removed button icons to prevent floating effects */
 
 /* =======================================================
+   CURRENT INDEX.HTML NAVIGATION STRUCTURE
+   ======================================================= */
+/* Target the specific navigation structure used in index.html */
+.nav-menu .nav-link[data-translate="about"]::before,
+.mobile-nav a[data-translate="about"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/info.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/info.svg");
+  background-color: var(--icon-color, #e2e8f0);
+}
+
+.nav-menu .nav-link[data-translate="customers"]::before,
+.mobile-nav a[data-translate="customers"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/users-round.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/users-round.svg");
+  background-color: var(--icon-color, #e2e8f0);
+}
+
+.nav-menu .nav-link[data-translate="pricing"]::before,
+.mobile-nav a[data-translate="pricing"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/badge-dollar-sign.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/badge-dollar-sign.svg");
+  background-color: var(--icon-color, #e2e8f0);
+}
+
+.nav-menu .nav-link[data-translate="contact"]::before,
+.mobile-nav a[data-translate="contact"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
+  background-color: var(--icon-color, #e2e8f0);
+}
+
+/* Hover effects for the specific navigation structure */
+.nav-menu .nav-link[data-translate="about"]:hover::before,
+.nav-menu .nav-link[data-translate="customers"]:hover::before,
+.nav-menu .nav-link[data-translate="pricing"]:hover::before,
+.nav-menu .nav-link[data-translate="contact"]:hover::before,
+.mobile-nav a:hover::before {
+  background-color: #06b6d4 !important;
+}
+
+/* =======================================================
    HOME (index) — NAV & AUTH & HERO & CONTACT
    ======================================================= */
-/* NAV */
-#main-nav a[data-translate="about"]::before {
+/* NAV - Main navigation icons */
+#main-nav a[data-translate="about"]::before,
+.mobile-nav a[data-translate="about"]::before,
+.nav-menu a[data-translate="about"]::before,
+nav a[data-translate="about"]::before {
   -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/info.svg");
           mask-image: url("https://unpkg.com/lucide-static@latest/icons/info.svg");
 }
-#main-nav a[data-translate="customers"]::before {
+#main-nav a[data-translate="customers"]::before,
+.mobile-nav a[data-translate="customers"]::before,
+.nav-menu a[data-translate="customers"]::before,
+nav a[data-translate="customers"]::before {
   -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/users-round.svg");
           mask-image: url("https://unpkg.com/lucide-static@latest/icons/users-round.svg");
 }
-#main-nav a[data-translate="pricing"]::before {
+#main-nav a[data-translate="pricing"]::before,
+.mobile-nav a[data-translate="pricing"]::before,
+.nav-menu a[data-translate="pricing"]::before,
+nav a[data-translate="pricing"]::before {
   -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/badge-dollar-sign.svg");
           mask-image: url("https://unpkg.com/lucide-static@latest/icons/badge-dollar-sign.svg");
 }
-#main-nav a[data-translate="contact"]::before {
+#main-nav a[data-translate="contact"]::before,
+.mobile-nav a[data-translate="contact"]::before,
+.nav-menu a[data-translate="contact"]::before,
+nav a[data-translate="contact"]::before {
   -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
           mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
 }

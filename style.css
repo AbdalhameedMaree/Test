@@ -215,6 +215,28 @@ header {
   .siteName {
     display: none;
   }
+.GetStarted-btn{
+   border-radius: 13px !important;
+  padding: .4rem 1rem !important;
+  font-weight: 600 !important;
+  font-size: .7rem !important;
+}
+.lang-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 13px !important;
+  padding: 1rem 0rem !important;
+  font-weight: 600 !important;
+  font-size: .5rem !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+.lang-btn span{
+  width: 70%;
+}
 }
 .siteName {
 font-size: large;
@@ -452,7 +474,7 @@ color: white !important;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .navbar {
     padding: 1rem;
   }
@@ -1441,7 +1463,7 @@ footer {
 #lang-toggle {
   margin-right: 0.5rem;
   font-size: 0.875rem;
-  padding: 0.5rem 1rem;
+  padding: 5rem 1rem !important;
 }
 
 [dir="rtl"] #lang-toggle {
@@ -2309,12 +2331,20 @@ table td:last-child {
 }
 
 /* Language Button Styles */
+
+@media screen and (min-width: 520px) {
+.GetStarted-btn{
+   border-radius: 13px !important;
+  padding: 1rem 2rem !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+}
 .lang-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   color: white !important;
   border: none !important;
   border-radius: 13px !important;
-  padding: 1rem 2rem !important;
+  padding: 1.4rem 2rem !important;
   font-weight: 600 !important;
   font-size: 1rem !important;
   transition: all 0.3s ease !important;
@@ -2322,12 +2352,8 @@ table td:last-child {
   position: relative !important;
   overflow: hidden !important;
 }
-.GetStarted-btn{
-   border-radius: 13px !important;
-  padding: 1rem 2rem !important;
-  font-weight: 600 !important;
-  font-size: 1rem !important;
 }
+
 .lang-btn::before {
   content: '';
   position: absolute;
@@ -2667,7 +2693,7 @@ img {
 }
 
 /* Tablets (768px - 1024px) */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .container {
     max-width: 90%;
     padding: 0 20px;
@@ -2694,17 +2720,17 @@ img {
   
   .pricing-grid {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    gap: 1rem;
   }
   
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1rem;
   }
   
   /* Dashboard improvements */
   .dashboard-content {
-    padding: 1.5rem;
+    padding: 1rem;
   }
   
   .dashboard-header {

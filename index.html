@@ -21,8 +21,7 @@
     <link rel="shortcut icon" href="agent-eq-logo.png" />
     <link rel="apple-touch-icon" href="agent-eq-logo.png" />
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /> <!-- Font Awesome -->
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta
@@ -48,9 +47,9 @@
     />
     <meta name="twitter:image" content="agent-eq-logo.png" />
 
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="agenteq-icons.css" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./agenteq-icons.css" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
@@ -128,14 +127,16 @@
         <div class="header-actions flex items-center space-x-4">
           <!-- Guest State -->
           <div class="auth-buttons flex items-center space-x-3" id="auth-buttons">
-            <button class="lang-btn px-3 py-2 text-sm bg-gray-800 text-white rounded-lg border border-gray-600/50 hover:bg-gray-700  hover:border-gray-500 transition-all duration-300 backdrop-blur-sm"
-                    id="lang-toggle"
+            <button class="lang-btn  language-btn px-3 py-3 text-sm bg-gray-800 text-white rounded-lg border border-gray-600/50 hover:bg-gray-700  hover:border-gray-500 transition-all duration-300 backdrop-blur-sm"
+                    data-translate=""
                     onclick="toggleLanguage()">
-              العربية
+                     <i class="fa-solid fa-language"></i>
+                   <span  id="lang-toggle">العربية</span>
+              
             </button>
             <button class="btn-primary  GetStarted-btn bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-cyan-500 transform hover:-translate-y-0.5"
                     onclick="showRegister()"
-                    data-translate="getStarted">
+                    data-translate="">
               <i class="fas fa-rocket mr-2"></i>
               Get Started
             </button>
@@ -883,9 +884,9 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script> <!-- Flowbite JS -->
-    <script src="lang.js"></script>
+    <script src="./lang.js"></script>
 
   </body>
 </html>
