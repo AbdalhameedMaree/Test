@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a2e; color: white; }
+        .form { max-width: 400px; margin: 0 auto; background: #2a2a3e; padding: 30px; border-radius: 10px; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #444; background: #333; color: white; border-radius: 5px; }
+        button { background: #00d4ff; color: black; cursor: pointer; }
+        .message { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #10b981; }
+        .error { background: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="form">
+        <h2>Admin Login Test</h2>
+        <p>Use this to log in as admin and then test the dashboard.</p>
+        
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email" value="admin@agentiq.com" required>
+            <input type="password" id="password" placeholder="Password" value="password" required>
+            <button type="submit">Login as Admin</button>
+        </form>
+        
+        <div id="message"></div>
+        
+        <p><a href="admin-dashboard.html" style="color: #00d4ff;">Go to Admin Dashboard</a></p>
+        <p><a href="index.html" style="color: #00d4ff;">Go to Main Site</a></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+            
+            try {
+                const response = await fetch('/backend/api/auth/login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.user) {
+                    messageDiv.innerHTML = `<div class="success">✅ Logged in successfully as ${data.user.first_name} ${data.user.last_name} (${data.user.role})</div>`;
+                    setTimeout(() => {
+                        window.location.href = 'admin-dashboard.html';
+                    }, 1500);
+                } else {
+                    messageDiv.innerHTML = `<div class="error">❌ Login failed: ${data.error || 'Unknown error'}</div>`;
+                }
+            } catch (error) {
+                messageDiv.innerHTML = `<div class="error">❌ Network error: ${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug Dashboard - AgentEQ</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #1a1a2e; color: white; }
+    .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #333; background: #2a2a3e; }
+    pre { background: #333; padding: 10px; overflow-x: auto; }
+    .chart-container { width: 400px; height: 300px; margin: 20px 0; background: #333; display: flex; align-items: center; justify-content: center; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Debug Dashboard</h1>
+  
+  <div class="debug-section">
+    <h2>API Response</h2>
+    <pre id="api-response">Loading...</pre>
+  </div>
+  
+  <div class="debug-section">
+    <h2>Statistics Overview</h2>
+    <div id="stats-overview">Loading...</div>
+  </div>
+  
+  <div class="debug-section">
+    <h2>Monthly Revenue Data</h2>
+    <pre id="revenue-data">Loading...</pre>
+    <div class="chart-container">
+      <canvas id="revenue-chart" width="400" height="300"></canvas>
+    </div>
+  </div>
+  
+  <div class="debug-section">
+    <h2>Subscription Distribution</h2>
+    <pre id="subscription-data">Loading...</pre>
+    <div class="chart-container">
+      <canvas id="subscription-chart" width="400" height="300"></canvas>
+    </div>
+  </div>
+
+  <script>
+    let revenueChart = null;
+    let subscriptionChart = null;
+
+    async function fetchStats() {
+      try {
+        console.log('Fetching statistics...');
+        const response = await fetch('/backend/api/admin/get-statistics.php');
+        console.log('Response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const text = await response.text();
+        console.log('Raw response:', text);
+        
+        document.getElementById('api-response').textContent = text;
+        
+        const data = JSON.parse(text);
+        console.log('Parsed data:', data);
+        
+        if (data.statistics) {
+          displayStats(data.statistics);
+        } else {
+          console.error('No statistics in response');
+        }
+        
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+        document.getElementById('api-response').textContent = 'Error: ' + error.message;
+      }
+    }
+
+    function displayStats(stats) {
+      // Show overview
+      if (stats.overview) {
+        const overview = stats.overview;
+        document.getElementById('stats-overview').innerHTML = `
+          <p>Total Users: ${overview.total_users}</p>
+          <p>Active Subscriptions: ${overview.active_subscriptions}</p>
+          <p>Total Revenue: $${overview.total_revenue}</p>
+          <p>Unread Messages: ${overview.unread_messages}</p>
+          <p>Average Rating: ${overview.average_rating}/5</p>
+          <p>Total Reviews: ${overview.total_reviews}</p>
+        `;
+      }
+
+      // Show revenue data
+      if (stats.monthly_revenue) {
+        document.getElementById('revenue-data').textContent = JSON.stringify(stats.monthly_revenue, null, 2);
+        createRevenueChart(stats.monthly_revenue);
+      } else {
+        document.getElementById('revenue-data').textContent = 'No monthly revenue data';
+      }
+
+      // Show subscription data
+      if (stats.subscriptions_by_plan) {
+        document.getElementById('subscription-data').textContent = JSON.stringify(stats.subscriptions_by_plan, null, 2);
+        createSubscriptionChart(stats.subscriptions_by_plan);
+      } else {
+        document.getElementById('subscription-data').textContent = 'No subscription data';
+      }
+    }
+
+    function createRevenueChart(data) {
+      const ctx = document.getElementById('revenue-chart');
+      if (!ctx || !data || data.length === 0) {
+        console.log('Cannot create revenue chart - missing context or data');
+        return;
+      }
+
+      if (revenueChart) {
+        revenueChart.destroy();
+      }
+
+      const sortedData = [...data].reverse();
+      const labels = sortedData.map(item => item.month);
+      const revenues = sortedData.map(item => parseFloat(item.revenue) || 0);
+
+      console.log('Creating revenue chart:', { labels, revenues });
+
+      revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Monthly Revenue',
+            data: revenues,
+            borderColor: 'rgba(0, 212, 255, 1)',
+            backgroundColor: 'rgba(0, 212, 255, 0.1)',
+            borderWidth: 2,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '$' + value;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function createSubscriptionChart(data) {
+      const ctx = document.getElementById('subscription-chart');
+      if (!ctx || !data || data.length === 0) {
+        console.log('Cannot create subscription chart - missing context or data');
+        return;
+      }
+
+      if (subscriptionChart) {
+        subscriptionChart.destroy();
+      }
+
+      const labels = data.map(item => item.name);
+      const counts = data.map(item => parseInt(item.count) || 0);
+
+      console.log('Creating subscription chart:', { labels, counts });
+
+      subscriptionChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: counts,
+            backgroundColor: [
+              'rgba(0, 212, 255, 0.8)',
+              'rgba(124, 58, 237, 0.8)',
+              'rgba(16, 185, 129, 0.8)',
+              'rgba(245, 158, 11, 0.8)'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      });
+    }
+
+    // Load stats on page load
+    fetchStats();
+  </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Checkout - Agentiq</title>
+  <meta name="color-scheme" content="dark" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="agent-eq-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="agent-eq-logo.png">
+  <link rel="shortcut icon" href="agent-eq-logo.png">
+  <link rel="apple-touch-icon" href="agent-eq-logo.png">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="agenteq-icons.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="grid-overlay"></div>
+    <div class="floating-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a class="logo-container" href="index.html">
+      <img src="agent-eq-logo.png" alt="Agentiq Logo" class="logo-img-large">
+    </a>
+    <nav id="main-nav">
+      <ul>
+        <li><a href="index.html" data-translate="home">Home</a></li>
+      </ul>
+    </nav>
+    <div class="auth-buttons">
+      <button class="btn-secondary" id="lang-toggle" onclick="toggleLanguage()">العربية</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="checkout-container">
+      <div class="checkout-header">
+        <h1 style="background: var(--gradient-primary); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Complete Your Purchase</h1>
+        <p style="color: var(--text-secondary);">Secure payment powered by industry-leading encryption</p>
+      </div>
+
+      <div class="checkout-grid">
+        <!-- Order Summary -->
+        <div class="card order-summary">
+          <h3 style="color: var(--primary);">Order Summary</h3>
+          <div class="order-item">
+            <div class="plan-info">
+              <div class="plan-name" id="plan-name">Loading...</div>
+              <div class="plan-billing" id="plan-billing">Monthly billing</div>
+            </div>
+            <div class="plan-price" id="plan-price">$0.00</div>
+          </div>
+          <div class="order-total">
+            <div class="total-label">Total</div>
+            <div class="total-amount" id="total-amount">$0.00</div>
+          </div>
+          <div class="security-badges">
+            <div class="security-badge">🔒 SSL Encrypted</div>
+            <div class="security-badge">💳 PCI Compliant</div>
+            <div class="security-badge">🛡️ Secure Payment</div>
+          </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="card payment-form">
+          <h3 style="color: var(--primary);">Payment Information</h3>
+          <form id="payment-form">
+            <div class="payment-methods">
+              <label class="payment-method active">
+                <input type="radio" name="payment_method" value="card" checked>
+                <span class="method-icon">💳</span>
+                <span class="method-name">Credit/Debit Card</span>
+              </label>
+              <div class="payment-method-note">
+                <small style="color: var(--text-secondary);">We accept Visa, Mastercard, American Express, and Discover</small>
+              </div>
+            </div>
+
+            <div id="card-form" class="payment-details">
+              <div class="form-group">
+                <label class="form-label">Card Number</label>
+                <input type="text" class="form-input" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Expiry Date</label>
+                  <input type="text" class="form-input" id="expiry-date" placeholder="MM/YY" maxlength="5" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">CVV</label>
+                  <input type="text" class="form-input" id="cvv" placeholder="123" maxlength="4" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Cardholder Name</label>
+                <input type="text" class="form-input" id="cardholder-name" placeholder="John Doe" required>
+              </div>
+            </div>
+
+            <div class="billing-address">
+              <h4 style="color: var(--primary); margin-bottom: 1rem;">Billing Address</h4>
+              <div class="form-group">
+                <label class="form-label">Country</label>
+                <select class="form-input" id="country" required>
+                  <option value="">Select Country</option>
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="DE">Germany</option>
+                  <option value="FR">France</option>
+                  <option value="PS">Palestine</option>
+                  <option value="JO">Jordan</option>
+                  <option value="AE">UAE</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">City</label>
+                  <input type="text" class="form-input" id="city" placeholder="New York" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Postal Code</label>
+                  <input type="text" class="form-input" id="postal-code" placeholder="10001" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="terms-agreement">
+              <label class="checkbox-label">
+                <input type="checkbox" id="terms-agreement" required>
+                <span class="checkmark"></span>
+                I agree to the <a href="#" style="color: var(--primary);">Terms of Service</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a>
+              </label>
+            </div>
+
+            <button type="submit" class="btn payment-btn" id="payment-btn">
+              Complete Payment
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Agentiq. All rights reserved. | Secure Payment
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="payment-checkout.js"></script>
+</body>
+</html>
+

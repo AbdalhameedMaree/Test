@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin API Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        button { margin: 5px; padding: 10px 15px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin API Test Page</h1>
+        
+        <div class="test-section">
+            <h3>1. Login as Admin</h3>
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Admin Email" value="admin@agenteq.com" required>
+                <input type="password" id="password" placeholder="Password" value="admin123" required>
+                <button type="submit">Login</button>
+            </form>
+            <div id="loginResult"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Check Authentication</h3>
+            <button onclick="checkAuth()">Check Auth Status</button>
+            <div id="authResult"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Test Statistics API</h3>
+            <button onclick="testStatistics()">Get Statistics</button>
+            <div id="statsResult"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Test Other APIs</h3>
+            <button onclick="testEmployees()">Get Employees</button>
+            <button onclick="testUsers()">Get Users</button>
+            <button onclick="testPlans()">Get Plans</button>
+            <button onclick="testReviews()">Get Reviews</button>
+            <button onclick="testMessages()">Get Messages</button>
+            <div id="otherResult"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/backend/api';
+
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                const text = await response.text();
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    data = { raw_response: text };
+                }
+                
+                return {
+                    success: response.ok,
+                    status: response.status,
+                    data: data
+                };
+            } catch (error) {
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+
+        function displayResult(elementId, result) {
+            const element = document.getElementById(elementId);
+            const className = result.success ? 'success' : 'error';
+            element.className = `test-section ${className}`;
+            element.innerHTML = `<pre>${JSON.stringify(result, null, 2)}</pre>`;
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const result = await apiCall('/auth/login.php', {
+                method: 'POST',
+                body: JSON.stringify({ email, password })
+            });
+            
+            displayResult('loginResult', result);
+        });
+
+        async function checkAuth() {
+            const result = await apiCall('/auth/check-auth.php');
+            displayResult('authResult', result);
+        }
+
+        async function testStatistics() {
+            const result = await apiCall('/admin/get-statistics.php');
+            displayResult('statsResult', result);
+        }
+
+        async function testEmployees() {
+            const result = await apiCall('/admin/get-employees.php');
+            displayResult('otherResult', result);
+        }
+
+        async function testUsers() {
+            const result = await apiCall('/admin/get-users.php');
+            displayResult('otherResult', result);
+        }
+
+        async function testPlans() {
+            const result = await apiCall('/admin/get-plans.php');
+            displayResult('otherResult', result);
+        }
+
+        async function testReviews() {
+            const result = await apiCall('/admin/get-reviews.php');
+            displayResult('otherResult', result);
+        }
+
+        async function testMessages() {
+            const result = await apiCall('/admin/get-messages.php');
+            displayResult('otherResult', result);
+        }
+    </script>
+</body>
+</html>

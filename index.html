@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgentEQ - AI-Powered Customer Experience Automation</title>
+    <meta
+      name="description"
+      content="Transform your customer experience with AgentEQ's intelligent AI automation platform. Streamline support, boost engagement, and scale your business with cutting-edge AI technology."
+    />
+    <meta
+      name="keywords"
+      content="AI automation, customer experience, chatbot, customer service, artificial intelligence, business automation, CX platform"
+    />
+    <meta name="author" content="AgentEQ" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="agent-eq-logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="agent-eq-logo.png" />
+    <link rel="shortcut icon" href="agent-eq-logo.png" />
+    <link rel="apple-touch-icon" href="agent-eq-logo.png" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" /> <!-- Font Awesome -->
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="AgentEQ - AI-Powered Customer Experience Automation"
+    />
+    <meta
+      property="og:description"
+      content="Transform your customer experience with intelligent AI automation. Streamline support, boost engagement, and scale your business."
+    />
+    <meta property="og:url" content="https://www.agent-eq.com" />
+    <meta property="og:image" content="agent-eq-logo.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="AgentEQ - AI-Powered Customer Experience Automation"
+    />
+    <meta
+      name="twitter:description"
+      content="Transform your customer experience with intelligent AI automation."
+    />
+    <meta name="twitter:image" content="agent-eq-logo.png" />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="agenteq-icons.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  </head>
+
+  <body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+      <div class="grid-overlay"></div>
+      <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-gray-900 border-b border-gray-700/50 shadow-lg">
+      <nav class="navbar px-4 sm:px-6 lg:px-8">
+        <!-- Logo -->
+        <a href="#" 
+           class=" logo-container flex items-center space-x-3 transition-all duration-300 " 
+           onclick="showHome()" 
+           title="AgentEQ Home">
+          <div class="relative">
+            <img src="agent-eq-logo.png" 
+                 class="h-20 w-20 logo-img-large filter drop-shadow-lg transition-all duration-300" 
+                 alt="AgentEQ Logo" />
+          </div>
+          <span class="text-2xl siteName font-bold bg-gradient-to-r from-cyan-400 via-blue-700 to-purple-500 bg-clip-text text-transparent">
+            Agent-EQ
+          </span>
+        </a>
+
+        <!-- Navigation Menu -->
+        <ul class="nav-menu md:flex items-center space-x-8">
+          <li class="nav-item">
+            <a href="#about" 
+               onclick="showHome()" 
+               class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300 relative group font-medium"
+               data-translate="about">
+              About
+              <span class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#customers" 
+               onclick="showHome()" 
+               class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300 relative group font-medium"
+               data-translate="customers">
+              Customers
+              <span class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#pricing" 
+               onclick="showHome()" 
+               class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300 relative group font-medium"
+               data-translate="pricing">
+              Pricing
+              <span class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#contact" 
+               onclick="showHome()" 
+               class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300 relative group font-medium"
+               data-translate="contact">
+              Contact
+              <span class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- User Actions -->
+        <div class="header-actions flex items-center space-x-4">
+          <!-- Guest State -->
+          <div class="auth-buttons flex items-center space-x-3" id="auth-buttons">
+            <button class="lang-btn px-3 py-2 text-sm bg-gray-800 text-gray-300 rounded-lg border border-gray-600/50 hover:bg-gray-700 hover:text-white hover:border-gray-500 transition-all duration-300 backdrop-blur-sm"
+                    id="lang-toggle"
+                    onclick="toggleLanguage()">
+              العربية
+            </button>
+            <button class="btn-primary  GetStarted-btn bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-cyan-500 transform hover:-translate-y-0.5"
+                    onclick="showRegister()"
+                    data-translate="getStarted">
+              <i class="fas fa-rocket mr-2"></i>
+              Get Started
+            </button>
+          </div>
+
+          <!-- Logged-in User State -->
+          <div class="user-menu hidden flex items-center space-x-3" id="user-menu">
+            <button class="lang-btn px-3 py-2 text-sm bg-gray-800/80 text-gray-300 rounded-lg border border-gray-600/50 hover:bg-gray-700 hover:text-white hover:border-gray-500 transition-all duration-300 backdrop-blur-sm"
+                    id="lang-toggle-user"
+                    onclick="toggleLanguage()">
+              العربية
+            </button>
+            <div class="relative">
+              <div class="user-avatar w-10 h-10 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold cursor-pointer hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
+                   id="user-avatar"
+                   onclick="toggleUserDropdown()"
+                   title="Open menu">
+                <span id="user-initials">U</span>
+              </div>
+              <div class="user-dropdown hidden absolute right-0 mt-3 w-48 bg-gray-800/95 backdrop-blur-xl rounded-lg shadow-xl border border-gray-700/50 z-50 overflow-hidden" id="user-dropdown">
+                <a href="#" 
+                   onclick="showDashboard()" 
+                   class="block px-4 py-3 text-sm text-gray-300 hover:bg-gray-700/50 hover:text-cyan-400 transition-all duration-200"
+                   data-translate="dashboard">
+                  <i class="fas fa-tachometer-alt mr-3 text-cyan-400"></i>Dashboard
+                </a>
+                <a href="#" 
+                   onclick="showProfile()" 
+                   class="block px-4 py-3 text-sm text-gray-300 hover:bg-gray-700/50 hover:text-cyan-400 transition-all duration-200"
+                   data-translate="profile">
+                  <i class="fas fa-user mr-3 text-cyan-400"></i>Profile
+                </a>
+                <hr class="border-gray-700/50">
+                <button onclick="logout()" 
+                        class="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all duration-200"
+                        data-translate="logout">
+                  <i class="fas fa-sign-out-alt mr-3"></i>Logout
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="hamburger md:hidden cursor-pointer p-2" onclick="toggleMobileMenu()">
+            <span class="bar block w-6 h-0.5 bg-gray-300 transition-all duration-300 transform"></span>
+            <span class="bar block w-6 h-0.5 bg-gray-300 my-1 transition-all duration-300"></span>
+            <span class="bar block w-6 h-0.5 bg-gray-300 transition-all duration-300 transform"></span>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Mobile Navigation Menu -->
+      <div class="mobile-nav hidden md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-gray-700/50" id="mobile-menu">
+        <div class="px-4 py-4 space-y-3">
+          <a href="#about" 
+             onclick="showHome(); toggleMobileMenu();" 
+             class="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2"
+             data-translate="about">
+            About
+          </a>
+          <a href="#customers" 
+             onclick="showHome(); toggleMobileMenu();" 
+             class="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2"
+             data-translate="customers">
+            Customers
+          </a>
+          <a href="#pricing" 
+             onclick="showHome(); toggleMobileMenu();" 
+             class="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2"
+             data-translate="pricing">
+            Pricing
+          </a>
+          <a href="#contact" 
+             onclick="showHome(); toggleMobileMenu();" 
+             class="block text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2"
+             data-translate="contact">
+            Contact
+          </a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- Home Page -->
+      <div id="home-page">
+        <!-- Hero Section -->
+        <section class="hero">
+          <div class="ai-elements">
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+          </div>
+          <div class="hero-content">
+            <h1 data-translate="heroTitle">AI Agents that never sleep</h1>
+            <p data-translate="heroDescription">
+              Transform your customer experience with intelligent AI agents that
+              respond instantly 24/7, boost satisfaction, and free your team to
+              focus on what matters most.
+            </p>
+            <div class="hero-buttons">
+              <button
+                class="btn"
+                onclick="showRegister()"
+                data-translate="getStartedNow"
+              >
+                Get Started Now
+              </button>
+              <button
+                class="btn-outline btn"
+                onclick="showPricing()"
+                data-translate="viewPricing"
+              >
+                View Pricing
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="fade-in">
+          <h2 data-translate="aboutTitle">About AgentEQdddddddd</h2>
+          <div class="about-grid">
+            <div class="about-card">
+              <h3 data-translate="aiPoweredTitle">
+                🤖 AI----Powered Intelligence
+              </h3>
+              <p data-translate="aiPoweredDesc">
+                Our advanced AI agents are trained on your business data to
+                engage with your audience in real time, ensuring seamless,
+                natural conversations that feel human.
+              </p>
+            </div>
+            <div class="about-card">
+              <h3 data-translate="missionTitle">
+                🚀 Mission-Driven Innovation
+              </h3>
+              <p data-translate="missionDesc">
+                Founded in Palestine, our mission is to democratize AI
+                automation, making it accessible to businesses of all sizes
+                while improving customer experiences.
+              </p>
+            </div>
+            <div class="about-card">
+              <h3 data-translate="expertTitle">🔬 Expert Team</h3>
+              <p data-translate="expertDesc">
+                Our team combines deep expertise in machine learning, natural
+                language processing, and human-centered design to deliver
+                reliable, secure AI agents.
+              </p>
+            </div>
+            <div class="about-card">
+              <h3 data-translate="trustedTitle">🏆 Trusted by Thousands</h3>
+              <p data-translate="trustedDesc">
+                From SMEs to enterprises, AgentEQ is trusted by thousands of
+                businesses to handle millions of conversations reliably,
+                securely, and with exceptional accuracy.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Customers Section -->
+        <section id="customers" class="fade-in">
+          <h2 data-translate="customersTitle">Our Customers</h2>
+          <p
+            class="text-center text-lg mb-6"
+            style="color: var(--text-secondary)"
+            data-translate="customersSubtitle"
+          >
+            Trusted by innovative companies worldwide
+          </p>
+          <div class="customers-grid" id="customer-reviews-container"></div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="fade-in">
+          <h2 data-translate="pricingTitle">Choose Your Plan</h2>
+          <p
+            class="text-center text-lg mb-6"
+            style="color: var(--text-secondary)"
+            data-translate="pricingSubtitle"
+          >
+            Scale your AI automation as you grow
+          </p>
+          <div class="pricing-grid" id="pricing-plans-container"></div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="fade-in">
+          <h2 data-translate="contactTitle">Contact Us</h2>
+          <div class="contact-container">
+            <div class="contact-form">
+              <h3
+                style="margin-bottom: 2rem; color: var(--primary)"
+                data-translate="getInTouch"
+              >
+                Get in Touch
+              </h3>
+              <form onsubmit="submitContact(event)">
+                <div class="form-group">
+                  <label class="form-label" data-translate="name">Name</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    name="name"
+                    data-translate="yourFullName"
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" data-translate="email">Email</label>
+                  <input
+                    type="email"
+                    class="form-input"
+                    name="email"
+                    data-translate="yourEmail"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" data-translate="company"
+                    >Company</label
+                  >
+                  <input
+                    type="text"
+                    class="form-input"
+                    name="company"
+                    data-translate="yourCompany"
+                    placeholder="Your company name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" data-translate="message"
+                    >Message</label
+                  >
+                  <textarea
+                    class="form-input"
+                    name="message"
+                    rows="5"
+                    data-translate="tellUsNeeds"
+                    placeholder="Tell us about your needs and how we can help you automate your customer experience"
+                  ></textarea>
+                </div>
+                <button
+                  class="btn"
+                  type="submit"
+                  style="width: 100%"
+                  data-translate="sendMessage"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+
+            <div class="contact-info">
+              <h3
+                style="margin-bottom: 2rem; color: var(--primary)"
+                data-translate="visitOffice"
+              >
+                Visit Our Office
+              </h3>
+              <div style="margin-bottom: 2rem">
+                <h4
+                  style="color: var(--text-primary); margin-bottom: 1rem"
+                  data-translate="location"
+                >
+                  📍 Location
+                </h4>
+                <p style="color: var(--text-secondary); line-height: 1.6">
+                  AgentEQ Headquarters<br />
+                  Birzeit, Ramallah<br />
+                  Palestine
+                </p>
+              </div>
+
+              <div style="margin-bottom: 2rem">
+                <h4 style="color: var(--text-primary); margin-bottom: 1rem">
+                  📧 Email
+                </h4>
+                <p style="color: var(--text-secondary)">info@agent-eq.com</p>
+              </div>
+
+              <div style="margin-bottom: 2rem">
+                <h4 style="color: var(--text-primary); margin-bottom: 1rem">
+                  📞 Phone
+                </h4>
+                <p style="color: var(--text-secondary)">+970 592448690</p>
+              </div>
+
+              <div class="map-container">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3387.8234567890123!2d35.1833!3d31.9667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ca1c9d8b8b8b8%3A0x1234567890abcdef!2sBirzeit%2C%20Palestine!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                >
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Dashboard Page -->
+      <div id="dashboard-page" class="hidden">
+        <div class="dashboard">
+          <div class="dashboard-header">
+            <h1
+              style="
+                background: var(--gradient-primary);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+              "
+            >
+              Dashboard
+            </h1>
+            <p style="color: var(--text-secondary)">
+              Welcome back! Here's your account overview.
+            </p>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="conversations-used">0</div>
+              <div class="stat-label">Conversations This Month</div>
+              <div class="progress-bar">
+                <div
+                  class="progress-fill"
+                  id="usage-progress"
+                  style="width: 0%"
+                ></div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-value" id="current-plan">No Plan</div>
+              <div class="stat-label">Current Plan</div>
+              <button class="btn mt-4" onclick="showPricing()">
+                Upgrade Plan
+              </button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="mb-4" style="color: var(--primary)">
+              Subscription Details
+            </h3>
+            <div id="subscription-details">
+              <p style="color: var(--text-secondary)">
+                No active subscription found.
+              </p>
+              <button class="btn mt-4" onclick="showPricing()">
+                Choose a Plan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Welcome Back</h2>
+          <p style="color: var(--text-secondary)">
+            Sign in to your AgentEQ account
+          </p>
+        </div>
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label" data-translate="email">Email</label>
+            <input
+              type="email"
+              class="form-input"
+              id="login-email"
+              name="email"
+              data-translate="yourEmail"
+              placeholder="your@email.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-translate="password">Password</label>
+            <div class="password-input-container">
+              <span
+                class="password-toggle-icon"
+                onclick="togglePassword('login-password', this)"
+              ></span>
+              <input
+                type="password"
+                class="form-input"
+                id="login-password"
+                name="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group text-right">
+            <a
+              href="#"
+              class="link-btn no-icon"
+              onclick="openForgotPasswordModal()"
+              data-translate="forgotPassword"
+              >Forgot password?</a
+            >
+          </div>
+          <div id="login-error" class="alert alert-error hidden"></div>
+          <button
+            type="submit"
+            class="btn"
+            style="width: 100%"
+            id="login-btn"
+            data-translate="login"
+          >
+            Sign In
+          </button>
+        </form>
+        <p class="text-center mt-4" style="color: var(--text-secondary)">
+          <span data-translate="noAccount">Don't have an account?</span>
+          <a
+            href="#"
+            onclick="showRegister()"
+            style="color: var(--primary)"
+            data-translate="signUp"
+            >Sign up</a
+          >
+        </p>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Join AgentEQ</h2>
+          <p style="color: var(--text-secondary)">
+            Create your account and start automating
+          </p>
+        </div>
+        <form onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label class="form-label" data-translate="firstName"
+              >First Name</label
+            >
+            <input
+              type="text"
+              class="form-input"
+              name="first_name"
+              placeholder="First name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-translate="lastName"
+              >Last Name</label
+            >
+            <input
+              type="text"
+              class="form-input"
+              name="last_name"
+              placeholder="Last name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-translate="email">Email</label>
+            <input
+              type="email"
+              class="form-input"
+              id="register-email"
+              name="email"
+              data-translate="yourEmail"
+              placeholder="your@email.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-translate="password">Password</label>
+            <div class="password-input-container">
+              <span
+                class="password-toggle-icon"
+                onclick="togglePassword('register-password', this)"
+              ></span>
+              <input
+                type="password"
+                class="form-input"
+                id="register-password"
+                name="password"
+                placeholder="Create a strong password"
+                required
+              />
+            </div>
+            <div
+              class="text-sm"
+              style="color: var(--text-muted); margin-top: 0.25rem"
+            >
+              At least 8 characters with uppercase, lowercase, and number
+            </div>
+          </div>
+          <div id="register-error" class="alert alert-error hidden"></div>
+          <div id="register-success" class="alert alert-success hidden"></div>
+
+          <!-- Legal Agreement -->
+          <div
+            class="legal-agreement"
+            style="
+              margin: 1rem 0;
+              padding: 1rem;
+              background: var(--bg-secondary);
+              border-radius: var(--radius);
+              font-size: 0.85rem;
+              color: var(--text-secondary);
+              line-height: 1.5;
+            "
+          >
+            By creating an account, you agree to our
+            <a
+              href="terms-of-service.html"
+              target="_blank"
+              style="color: var(--primary); text-decoration: none"
+              >Terms of Service</a
+            >
+            and
+            <a
+              href="privacy-policy.html"
+              target="_blank"
+              style="color: var(--primary); text-decoration: none"
+              >Privacy Policy</a
+            >.
+          </div>
+
+          <button
+            type="submit"
+            class="btn"
+            style="width: 100%"
+            id="register-btn"
+            data-translate="register"
+          >
+            Create Account
+          </button>
+        </form>
+        <p class="text-center mt-4" style="color: var(--text-secondary)">
+          <span data-translate="alreadyAccount">Already have an account?</span>
+          <a
+            href="#"
+            onclick="showLogin()"
+            style="color: var(--primary)"
+            data-translate="login"
+            >Sign in</a
+          >
+        </p>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Reset your password</h2>
+          <p style="color: var(--text-secondary)">
+            Enter your email and we'll send you a reset link/code
+          </p>
+        </div>
+        <form onsubmit="handleForgotPassword(event)">
+          <div class="form-group">
+            <label class="form-label" for="forgot-email">Email</label>
+            <input
+              type="email"
+              class="form-input"
+              id="forgot-email"
+              name="email"
+              placeholder="your@email.com"
+              required
+            />
+          </div>
+          <div id="forgot-error" class="alert alert-error hidden"></div>
+          <div id="forgot-success" class="alert alert-success hidden"></div>
+          <button type="submit" class="btn" style="width: 100%">
+            Send reset link
+          </button>
+        </form>
+        <button class="modal-close" onclick="closeForgotPasswordModal()">
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <!-- Verification Modal -->
+    <div id="verification-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Verify Your Email</h2>
+          <p style="color: var(--text-secondary)">
+            We've sent a verification code to your email
+          </p>
+        </div>
+        <form onsubmit="handleVerification(event)">
+          <div class="form-group">
+            <label class="form-label">Verification Code</label>
+            <input
+              type="text"
+              class="form-input"
+              name="token"
+              required
+              placeholder="Enter verification code"
+            />
+          </div>
+          <div id="verification-error" class="alert alert-error hidden"></div>
+          <div
+            id="verification-success"
+            class="alert alert-success hidden"
+          ></div>
+          <button
+            type="submit"
+            class="btn"
+            style="width: 100%"
+            id="verification-btn"
+          >
+            Verify Email
+          </button>
+        </form>
+        <button
+          type="button"
+          class="btn-outline btn mt-4"
+          id="resend-btn"
+          onclick="resendVerificationCode()"
+          style="width: 100%"
+        >
+          Resend Code
+        </button>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+    </div>
+
+    <!-- 🔥 Reset Password Modal (make sure it's OUTSIDE any other modal) -->
+    <div id="reset-password-modal" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Reset Password</h2>
+          <p style="color: var(--text-secondary)">
+            Enter the code sent to your email and your new password
+          </p>
+        </div>
+        <form onsubmit="handleResetPassword(event)">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-input"
+              id="reset-email"
+              placeholder="your@email.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reset Code</label>
+            <input
+              type="text"
+              class="form-input"
+              id="reset-code"
+              placeholder="Enter reset code"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <div class="password-input-container">
+              <span
+                class="password-toggle-icon"
+                onclick="togglePassword('new-password', this)"
+              ></span>
+              <input
+                type="password"
+                class="form-input"
+                id="new-password"
+                placeholder="Enter new password"
+                required
+              />
+            </div>
+          </div>
+          <div id="reset-error" class="alert alert-error hidden"></div>
+          <div id="reset-success" class="alert alert-success hidden"></div>
+          <button type="submit" class="btn" style="width: 100%">
+            Change Password
+          </button>
+        </form>
+        <button class="modal-close" onclick="closeResetPasswordModal()">
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <img
+              src="agent-eq-logo.png"
+              alt="AgentEQ Logo"
+              class="footer-logo"
+            />
+            <p>
+              Transforming customer experience with intelligent AI automation.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="#about">About</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+              <li><a href="#customers">Customers</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="mailto:support@agent-eq.com">Help Center</a></li>
+              <li><a href="#contact">Get in Touch</a></li>
+              <li>
+                <a href="mailto:privacy@agent-eq.com">Privacy Concerns</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 AgentEQ. All rights reserved. | Empowering businesses
+            with AI automation.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script> <!-- Flowbite JS -->
+    <script src="lang.js"></script>
+
+  </body>
+</html>

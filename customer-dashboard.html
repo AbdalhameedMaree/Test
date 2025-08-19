@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Dashboard - AgentEQ</title>
+  <meta name="color-scheme" content="dark" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="agent-eq-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="agent-eq-logo.png">
+  <link rel="shortcut icon" href="agent-eq-logo.png">
+  <link rel="apple-touch-icon" href="agent-eq-logo.png">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="agenteq-icons.css">
+  <script src="lang.js"></script>
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="grid-overlay"></div>
+    <div class="floating-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a class="logo-container" href="index.html" title="AgentEQ Home">
+      <img src="agent-eq-logo.png" alt="AgentEQ Logo" class="logo-img">
+      <span>AgentEQ</span>
+    </a>
+
+    <nav id="main-nav">
+      <ul>
+        <li><a href="#subscription" data-translate="subscription">Subscription</a></li>
+        <li><a href="#usage" data-translate="usage">Usage</a></li>
+        <li><a href="#billing" data-translate="billing">Billing</a></li>
+        <li><a href="#support" data-translate="support">Support</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <button class="btn-secondary lang-btn" id="lang-toggle-user" onclick="toggleLanguage()">العربية</button>
+
+      <div class="user-menu" id="user-menu">
+        <div class="user-avatar" id="user-avatar" onclick="toggleUserDropdown()">
+          <span id="user-initials">C</span>
+        </div>
+        <div class="user-dropdown hidden" id="user-dropdown">
+          <a href="index.html" data-translate="home">Home</a>
+          <a href="#" onclick="showProfile()" data-translate="profile">Profile</a>
+          <button onclick="logout()" data-translate="logout">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <h1 style="background: var(--gradient-primary); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;" data-translate="customerDashboard">Customer Dashboard</h1>
+        <p style="color: var(--text-secondary);" data-translate="customerWelcome">Manage your subscription and monitor usage.</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="conversations-used">0</div>
+          <div class="stat-label" data-translate="conversationsUsed">Conversations Used</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="usage-progress" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-value" id="current-plan">No Plan</div>
+          <div class="stat-label" data-translate="currentPlan">Current Plan</div>
+          <!-- Use the page-safe function -->
+          <button class="btn mt-4" onclick="gotoPricing()" data-translate="upgradePlan">Upgrade Plan</button>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-value" id="days-remaining">0</div>
+          <div class="stat-label" data-translate="daysRemaining">Days Remaining</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-value" id="monthly-spend">$0</div>
+          <div class="stat-label" data-translate="monthlySpend">Monthly Spend</div>
+        </div>
+      </div>
+
+      <!-- Current Subscription -->
+      <div class="card" id="subscription">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="currentSubscription">Current Subscription</h3>
+          <!-- Use the page-safe function -->
+          <button class="btn" onclick="gotoPricing()" data-translate="changePlan">Change Plan</button>
+        </div>
+        <div id="subscription-details">
+          <div class="subscription-info">
+            <div class="subscription-plan">
+              <h4 id="plan-name" data-translate="noPlan">No Active Plan</h4>
+              <p id="plan-price" style="color: var(--text-secondary);">$0/month</p>
+            </div>
+            <div class="subscription-features" id="plan-features">
+              <p style="color: var(--text-secondary);" data-translate="selectPlanMessage">Please select a plan to get started.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Usage Analytics -->
+      <div class="card" id="usage">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="usageAnalytics">Usage Analytics</h3>
+        </div>
+        <div class="usage-chart">
+          <canvas id="usage-chart" width="400" height="200"></canvas>
+        </div>
+        <div class="usage-stats">
+          <div class="usage-stat">
+            <span class="usage-label" data-translate="thisMonth">This Month:</span>
+            <span class="usage-value" id="current-month-usage">0 conversations</span>
+          </div>
+          <div class="usage-stat">
+            <span class="usage-label" data-translate="lastMonth">Last Month:</span>
+            <span class="usage-value" id="last-month-usage">0 conversations</span>
+          </div>
+          <div class="usage-stat">
+            <span class="usage-label" data-translate="averageDaily">Average Daily:</span>
+            <span class="usage-value" id="average-daily-usage">0 conversations</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing History -->
+      <div class="card" id="billing">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="billingHistory">Billing History</h3>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-translate="date">Date</th>
+                <th data-translate="plan">Plan</th>
+                <th data-translate="amount">Amount</th>
+                <th data-translate="status">Status</th>
+                <th data-translate="invoice">Invoice</th>
+              </tr>
+            </thead>
+            <tbody id="billing-table-body">
+              <tr>
+                <td colspan="5" style="text-align: center; color: var(--text-secondary);" data-translate="noBillingHistory">No billing history available</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Support -->
+      <div class="card" id="support">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="support">Support</h3>
+        </div>
+        <div class="support-options">
+          <div class="support-card">
+            <h4 data-translate="documentation">📚 Documentation</h4>
+            <p data-translate="documentationDesc">Find answers in our comprehensive guides</p>
+            <button class="btn" style="width:100%;" onclick="openDocumentation()" data-translate="viewDocs">View Docs</button>
+          </div>
+          <div class="support-card">
+            <h4 data-translate="contactSupport">💬 Contact Support</h4>
+            <p data-translate="contactSupportDesc">Get help from our support team</p>
+            <button class="btn" style="width:100%;" onclick="contactSupport()" data-translate="contactUs">Contact Us</button>
+          </div>
+          <div class="support-card">
+            <h4 data-translate="communityForum">🌐 Community Forum</h4>
+            <p data-translate="communityForumDesc">Connect with other users and share tips</p>
+            <button class="btn" style="width:100%;" onclick="openForum()" data-translate="joinForum">Join Forum</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 AgentEQ. All rights reserved. | Customer Dashboard
+  </footer>
+
+  <!-- Order matters: load shared script first -->
+  <script src="script.js"></script>
+  <script src="customer-dashboard-enhanced.js"></script>
+
+  <!-- Hard fallback in case customer-dashboard.js didn't define it -->
+  <script>
+    if (!window.gotoPricing) {
+      window.gotoPricing = function () {
+        try {
+          const u = new URL('index.html', location.href);
+          u.hash = 'pricing';
+          location.href = u.toString();
+        } catch (e) {
+          location.href = 'index.html#pricing';
+        }
+      };
+    }
+  </script>
+</body>
+</html>

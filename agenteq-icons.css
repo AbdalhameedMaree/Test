@@ -1,0 +1,338 @@
+/* =======================================================
+   Agent-eq Icons — consolidated CSS (Lucide masks, white)
+   -------------------------------------------------------
+   Usage:
+   1) Place this file next to style.css (same folder).
+   2) In every HTML page, AFTER style.css add:
+      <link rel="stylesheet" href="agenteq-icons.css">
+   3) Remove/disable any previous icon blocks from style.css
+      to avoid duplication/conflicts.
+   Notes:
+   - Icons are white via CSS masks. You can change color by
+     overriding `--icon-color` on a container or element.
+   - RTL support included.
+   ======================================================= */
+
+:root{
+  --icon-size: 1.1rem;
+  --icon-color: #fff; /* white icons */
+}
+
+/* Base icon pseudo for links & buttons (BUTTONS DISABLED TO PREVENT FLOATING EFFECT) */
+#main-nav a::before,
+.user-dropdown a::before,
+.user-dropdown button::before {
+  content: "";
+  display: inline-block;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  background-color: var(--icon-color);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  margin-right: .5rem;
+  vertical-align: -2px;
+  /* Ensure inline alignment with text */
+}
+
+/* RTL nicety */
+[dir="rtl"] #main-nav a::before,
+[dir="rtl"] .user-dropdown a::before,
+[dir="rtl"] .user-dropdown button::before {
+  margin-right: 0;
+  margin-left: .5rem;
+}
+
+/* =======================================================
+   ADMIN — NAV
+   ======================================================= */
+#main-nav a[data-translate="dashboard"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/layout-dashboard.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/layout-dashboard.svg");
+}
+#main-nav a[data-translate="users"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/users.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/users.svg");
+}
+#main-nav a[data-translate="plans"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/folder-kanban.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/folder-kanban.svg");
+}
+#main-nav a[data-translate="reviews"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/star.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/star.svg");
+}
+#main-nav a[data-translate="messages"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
+}
+#main-nav a[data-translate="profile"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/user-round.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/user-round.svg");
+}
+
+/* =======================================================
+   USER DROPDOWN (common)
+   ======================================================= */
+.user-dropdown a[data-translate="home"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/home.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/home.svg");
+}
+.user-dropdown a[data-translate="dashboard"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/layout-dashboard.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/layout-dashboard.svg");
+}
+.user-dropdown a[data-translate="profile"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/user-round.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/user-round.svg");
+}
+.user-dropdown button[data-translate="logout"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/log-out.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/log-out.svg");
+}
+
+/* =======================================================
+   BUTTONS BY ACTION (DISABLED TO PREVENT FLOATING ICONS)
+   ======================================================= */
+/* Removed all .btn::before selectors to prevent floating icon effects */
+
+/* =======================================================
+   CUSTOMER — NAV
+   ======================================================= */
+#main-nav a[data-translate="subscription"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/badge-check.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/badge-check.svg");
+}
+#main-nav a[data-translate="usage"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/activity.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/activity.svg");
+}
+#main-nav a[data-translate="billing"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/credit-card.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/credit-card.svg");
+}
+#main-nav a[data-translate="support"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/life-buoy.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/life-buoy.svg");
+}
+
+/* Subscription CTA buttons (DISABLED) */
+/* Removed button icons to prevent floating effects */
+
+/* Support cards (DISABLED) */
+/* Removed button icons to prevent floating effects */
+
+/* =======================================================
+   PROFILE PAGES — ACTION BUTTONS (DISABLED)
+   ======================================================= */
+/* Removed button icons to prevent floating effects */
+
+/* =======================================================
+   HOME (index) — NAV & AUTH & HERO & CONTACT
+   ======================================================= */
+/* NAV */
+#main-nav a[data-translate="about"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/info.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/info.svg");
+}
+#main-nav a[data-translate="customers"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/users-round.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/users-round.svg");
+}
+#main-nav a[data-translate="pricing"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/badge-dollar-sign.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/badge-dollar-sign.svg");
+}
+#main-nav a[data-translate="contact"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
+}
+
+/* Auth buttons in header (DISABLED) */
+/* Removed button icons to prevent floating effects */
+
+/* Hero buttons (DISABLED) */
+/* Removed button icons to prevent floating effects */
+
+/* Contact form submit (DISABLED) */
+/* Removed button icons to prevent floating effects */
+
+/* Theme toggle moon */
+.theme-toggle::before {
+  content: "";
+  display: inline-block;
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  -webkit-mask: no-repeat center / contain;
+          mask: no-repeat center / contain;
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/moon.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/moon.svg");
+  background: var(--icon-color, #fff);
+}
+
+/* Optional section icons (headings) */
+#about > h2::before {
+  content: "";
+  display: inline-block;
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  -webkit-mask: no-repeat center / contain;
+          mask: no-repeat center / contain;
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/sparkles.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/sparkles.svg");
+  background: var(--icon-color, #fff);
+  margin-right: .5rem;
+  vertical-align: -2px;
+}
+#customers > h2::before {
+  content: "";
+  display: inline-block;
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  -webkit-mask: no-repeat center / contain;
+          mask: no-repeat center / contain;
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/users-round.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/users-round.svg");
+  background: var(--icon-color, #fff);
+  margin-right: .5rem;
+  vertical-align: -2px;
+}
+#pricing > h2::before {
+  content: "";
+  display: inline-block;
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  -webkit-mask: no-repeat center / contain;
+          mask: no-repeat center / contain;
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/wallet.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/wallet.svg");
+  background: var(--icon-color, #fff);
+  margin-right: .5rem;
+  vertical-align: -2px;
+}
+#contact > h2::before {
+  content: "";
+  display: inline-block;
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  -webkit-mask: no-repeat center / contain;
+          mask: no-repeat center / contain;
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/mail.svg");
+  background: var(--icon-color, #fff);
+  margin-right: .5rem;
+  vertical-align: -2px;
+}
+
+/* =======================================================
+   PAYMENT (payment-checkout) — Icons
+   ======================================================= */
+#main-nav a[data-translate="home"]::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/home.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/home.svg");
+}
+
+/* Card titles */
+.order-summary > h3::before {
+  content: "";
+  display: inline-block;
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  -webkit-mask: no-repeat center / contain;
+          mask: no-repeat center / contain;
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/receipt.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/receipt.svg");
+  background: var(--icon-color, #fff);
+  margin-right: .5rem;
+  vertical-align: -2px;
+}
+
+.payment-form > h3::before {
+  content: "";
+  display: inline-block;
+  width: var(--icon-size, 18px);
+  height: var(--icon-size, 18px);
+  -webkit-mask: no-repeat center / contain;
+          mask: no-repeat center / contain;
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/credit-card.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/credit-card.svg");
+  background: var(--icon-color, #fff);
+  margin-right: .5rem;
+  vertical-align: -2px;
+}
+
+.billing-address > h4::before {
+  content: "";
+  display: inline-block;
+  width: var(--icon-size, 16px);
+  height: var(--icon-size, 16px);
+  -webkit-mask: no-repeat center / contain;
+          mask: no-repeat center / contain;
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/map-pin.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/map-pin.svg");
+  background: var(--icon-color, #fff);
+  margin-right: .5rem;
+  vertical-align: -2px;
+}
+
+/* Security badges */
+.security-badges .security-badge {
+  position: relative;
+  padding-left: 26px;
+}
+.security-badges .security-badge::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 2px;
+  width: 18px; height: 18px;
+  -webkit-mask: no-repeat center / contain;
+          mask: no-repeat center / contain;
+  background: var(--icon-color, #fff);
+  opacity: .9;
+}
+.security-badges .security-badge:nth-child(1)::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/lock.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/lock.svg");
+}
+.security-badges .security-badge:nth-child(2)::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/shield-check.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/shield-check.svg");
+}
+.security-badges .security-badge:nth-child(3)::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/shield.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/shield.svg");
+}
+
+/* CTA button (DISABLED) */
+/* Removed button icons to prevent floating effects */
+
+/* RTL tweak for security badges */
+[dir="rtl"] .security-badges .security-badge {
+  padding-left: 0;
+  padding-right: 26px;
+}
+[dir="rtl"] .security-badges .security-badge::before {
+  left: auto; right: 0;
+}
+/* أيقونة الموظفين: الحقيبة */
+#main-nav a[data-translate="employees"]::before,
+#employees .card-header h3::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/briefcase.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/briefcase.svg");
+}
+
+/* ===== Subscriptions ===== */
+#main-nav a[data-translate="subscriptions"]::before,
+#subscriptions .card-header h3::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/credit-card.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/credit-card.svg");
+}
+/* ===== Reports ===== */
+#main-nav a[data-translate="reports"]::before,
+#reports .card-header h3::before {
+  -webkit-mask-image: url("https://unpkg.com/lucide-static@latest/icons/bar-chart-3.svg");
+          mask-image: url("https://unpkg.com/lucide-static@latest/icons/bar-chart-3.svg");
+}

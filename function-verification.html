@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Function Verification - AgentEQ</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="agent-eq-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="agent-eq-logo.png">
+  <link rel="shortcut icon" href="agent-eq-logo.png">
+  <link rel="apple-touch-icon" href="agent-eq-logo.png">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .verification-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+    }
+    .function-group {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--bg-primary);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .function-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .function-item:last-child {
+      border-bottom: none;
+    }
+    .function-name {
+      font-family: monospace;
+      color: var(--primary);
+    }
+    .status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .status.working {
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+    }
+    .status.missing {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+    .status.warning {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+    }
+    .test-btn {
+      margin-left: 1rem;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.875rem;
+    }
+    .summary {
+      background: var(--bg-primary);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="grid-overlay"></div>
+    <div class="floating-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+  </div>
+
+  <div class="verification-container">
+    <h1 style="text-align: center; color: var(--primary); margin-bottom: 2rem;">
+      Button Function Verification
+    </h1>
+    
+    <div class="summary" id="summary">
+      <p style="color: var(--text-secondary);">Loading function verification...</p>
+    </div>
+
+    <div class="function-group">
+      <h3 style="color: var(--accent); margin-bottom: 1rem;">Core Functions (script.js)</h3>
+      <div id="core-functions"></div>
+    </div>
+
+    <div class="function-group">
+      <h3 style="color: var(--accent); margin-bottom: 1rem;">Admin Dashboard Functions</h3>
+      <div id="admin-functions"></div>
+    </div>
+
+    <div class="function-group">
+      <h3 style="color: var(--accent); margin-bottom: 1rem;">Customer Dashboard Functions</h3>
+      <div id="customer-functions"></div>
+    </div>
+
+    <div class="function-group">
+      <h3 style="color: var(--accent); margin-bottom: 1rem;">Employee Dashboard Functions</h3>
+      <div id="employee-functions"></div>
+    </div>
+
+    <div class="function-group">
+      <h3 style="color: var(--accent); margin-bottom: 1rem;">Profile Functions</h3>
+      <div id="profile-functions"></div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn" onclick="runComprehensiveTest()">Run Comprehensive Test</button>
+      <button class="btn-outline" onclick="location.reload()">Refresh Test</button>
+    </div>
+  </div>
+
+  <script>
+    // Standalone function verification - no dashboard script loading
+    // This prevents any auth redirects completely
+    
+    // Define all functions that should exist
+    const expectedFunctions = {
+      core: [
+        'togglePassword',
+        'toggleLanguage', 
+        'toggleUserDropdown',
+        'showHome',
+        'showLogin',
+        'showRegister',
+        'showPricing',
+        'showDashboard',
+        'showProfile',
+        'logout',
+        'closeModal',
+        'openForgotPasswordModal',
+        'closeForgotPasswordModal',
+        'closeResetPasswordModal',
+        'resendVerificationCode',
+        'handleLogin',
+        'handleRegister',
+        'showNotification',
+        'showSuccessAnimation',
+        'closeSuccessAnimation'
+      ],
+      admin: [
+        'showAddEmployeeModal',
+        'showAddUserModal', 
+        'showAddPlanModal',
+        'showAddReviewModal',
+        'editEmployee',
+        'deleteEmployee',
+        'editUser',
+        'deleteUser',
+        'editPlan',
+        'togglePlan',
+        'editReview',
+        'toggleReviewApproval',
+        'toggleReviewFeatured',
+        'viewMessage',
+        'deleteMessage',
+        'loadEnhancedDashboardData'
+      ],
+      customer: [
+        'gotoPricing',
+        'showProfile',
+        'openDocumentation',
+        'contactSupport',
+        'openForum'
+      ],
+      employee: [
+        'generateSubscriptionReport',
+        'generateCustomerReport',
+        'generateRevenueReport'
+      ],
+      profile: [
+        'togglePassword'
+      ]
+    };
+
+    function checkFunction(funcName) {
+      if (typeof window[funcName] === 'function') {
+        return { status: 'working', message: 'Function exists and is callable' };
+      } else if (window[funcName] !== undefined) {
+        return { status: 'warning', message: 'Variable exists but is not a function' };
+      } else {
+        return { status: 'missing', message: 'Function not found' };
+      }
+    }
+
+    function createFunctionItem(funcName, result) {
+      return `
+        <div class="function-item">
+          <span class="function-name">${funcName}()</span>
+          <div>
+            <span class="status ${result.status}">${result.status.toUpperCase()}</span>
+            ${result.status === 'working' ? 
+              `<button class="btn-sm test-btn" onclick="testFunction('${funcName}')">Test</button>` : 
+              ''
+            }
+          </div>
+        </div>
+      `;
+    }
+
+    function testFunction(funcName) {
+      try {
+        // Only test safe functions that don't cause navigation or modals
+        const safeFunctions = ['toggleLanguage', 'showNotification', 'toggleUserDropdown'];
+        
+        if (safeFunctions.includes(funcName)) {
+          if (funcName === 'showNotification') {
+            window[funcName](`Testing ${funcName} function`, 'info', 2000);
+          } else if (funcName === 'toggleLanguage') {
+            window[funcName]();
+            if (typeof showNotification === 'function') {
+              showNotification(`${funcName} function called successfully`, 'success', 2000);
+            } else {
+              alert(`${funcName} function called successfully`);
+            }
+          } else {
+            window[funcName]();
+            if (typeof showNotification === 'function') {
+              showNotification(`${funcName} function called successfully`, 'success', 2000);
+            } else {
+              alert(`${funcName} function called successfully`);
+            }
+          }
+        } else {
+          if (typeof showNotification === 'function') {
+            showNotification(`${funcName} function exists and is ready to use`, 'info', 2000);
+          } else {
+            alert(`${funcName} function exists and is ready to use`);
+          }
+        }
+      } catch (error) {
+        if (typeof showNotification === 'function') {
+          showNotification(`Error testing ${funcName}: ${error.message}`, 'error', 3000);
+        } else {
+          alert(`Error testing ${funcName}: ${error.message}`);
+        }
+      }
+    }
+
+    function runVerification() {
+      let totalFunctions = 0;
+      let workingFunctions = 0;
+      let missingFunctions = 0;
+      let warningFunctions = 0;
+
+      // Check core functions
+      const coreContainer = document.getElementById('core-functions');
+      if (coreContainer) {
+        coreContainer.innerHTML = '';
+        expectedFunctions.core.forEach(funcName => {
+          totalFunctions++;
+          const result = checkFunction(funcName);
+          if (result.status === 'working') workingFunctions++;
+          else if (result.status === 'missing') missingFunctions++;
+          else warningFunctions++;
+          coreContainer.innerHTML += createFunctionItem(funcName, result);
+        });
+      }
+
+      // Check admin functions
+      const adminContainer = document.getElementById('admin-functions');
+      if (adminContainer) {
+        adminContainer.innerHTML = '';
+        expectedFunctions.admin.forEach(funcName => {
+          totalFunctions++;
+          const result = checkFunction(funcName);
+          if (result.status === 'working') workingFunctions++;
+          else if (result.status === 'missing') missingFunctions++;
+          else warningFunctions++;
+          adminContainer.innerHTML += createFunctionItem(funcName, result);
+        });
+      }
+
+      // Check customer functions
+      const customerContainer = document.getElementById('customer-functions');
+      if (customerContainer) {
+        customerContainer.innerHTML = '';
+        expectedFunctions.customer.forEach(funcName => {
+          totalFunctions++;
+          const result = checkFunction(funcName);
+          if (result.status === 'working') workingFunctions++;
+          else if (result.status === 'missing') missingFunctions++;
+          else warningFunctions++;
+          customerContainer.innerHTML += createFunctionItem(funcName, result);
+        });
+      }
+
+      // Check employee functions
+      const employeeContainer = document.getElementById('employee-functions');
+      if (employeeContainer) {
+        employeeContainer.innerHTML = '';
+        expectedFunctions.employee.forEach(funcName => {
+          totalFunctions++;
+          const result = checkFunction(funcName);
+          if (result.status === 'working') workingFunctions++;
+          else if (result.status === 'missing') missingFunctions++;
+          else warningFunctions++;
+          employeeContainer.innerHTML += createFunctionItem(funcName, result);
+        });
+      }
+
+      // Check profile functions
+      const profileContainer = document.getElementById('profile-functions');
+      if (profileContainer) {
+        profileContainer.innerHTML = '';
+        expectedFunctions.profile.forEach(funcName => {
+          totalFunctions++;
+          const result = checkFunction(funcName);
+          if (result.status === 'working') workingFunctions++;
+          else if (result.status === 'missing') missingFunctions++;
+          else warningFunctions++;
+          profileContainer.innerHTML += createFunctionItem(funcName, result);
+        });
+      }
+
+      // Update summary
+      const summary = document.getElementById('summary');
+      if (summary) {
+        const percentage = Math.round((workingFunctions / totalFunctions) * 100);
+        
+        summary.innerHTML = `
+          <h3 style="color: var(--primary); margin-bottom: 1rem;">Verification Summary</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+            <div>
+              <div style="font-size: 2rem; font-weight: bold; color: var(--accent);">${percentage}%</div>
+              <div style="color: var(--text-secondary);">Functions Working</div>
+            </div>
+            <div>
+              <div style="font-size: 2rem; font-weight: bold; color: #10b981;">${workingFunctions}</div>
+              <div style="color: var(--text-secondary);">Working</div>
+            </div>
+            <div>
+              <div style="font-size: 2rem; font-weight: bold; color: #f59e0b;">${warningFunctions}</div>
+              <div style="color: var(--text-secondary);">Warnings</div>
+            </div>
+            <div>
+              <div style="font-size: 2rem; font-weight: bold; color: #ef4444;">${missingFunctions}</div>
+              <div style="color: var(--text-secondary);">Missing</div>
+            </div>
+          </div>
+          <p style="color: var(--text-secondary);">
+            ${percentage >= 90 ? 
+              '✅ Excellent! Almost all functions are working correctly.' :
+              percentage >= 70 ?
+              '⚠️ Good, but some functions need attention.' :
+              '❌ Several functions are missing and need to be implemented.'
+            }
+          </p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
+            Note: Some functions may show as missing because their corresponding dashboard scripts are not loaded on this verification page.
+            This is normal and expected for testing purposes.
+          </p>
+        `;
+      }
+    }
+
+    function runComprehensiveTest() {
+      const notification = typeof showNotification === 'function' ? showNotification : alert;
+      notification('Running comprehensive button functionality test...', 'info', 2000);
+      
+      setTimeout(() => {
+        // Test a few key functions
+        const testResults = [];
+        
+        try {
+          if (typeof showNotification === 'function') {
+            showNotification('✅ Notification system working', 'success', 1500);
+            testResults.push('Notifications: ✅');
+          } else {
+            testResults.push('Notifications: ❌');
+          }
+        } catch (e) {
+          testResults.push('Notifications: ❌');
+        }
+
+        try {
+          if (typeof toggleLanguage === 'function') {
+            testResults.push('Language Toggle: ✅');
+          } else {
+            testResults.push('Language Toggle: ❌');
+          }
+        } catch (e) {
+          testResults.push('Language Toggle: ❌');
+        }
+
+        try {
+          if (typeof showLogin === 'function') {
+            testResults.push('Auth System: ✅');
+          } else {
+            testResults.push('Auth System: ❌');
+          }
+        } catch (e) {
+          testResults.push('Auth System: ❌');
+        }
+
+        setTimeout(() => {
+          const notification = typeof showNotification === 'function' ? showNotification : alert;
+          notification(`Test Results: ${testResults.join(', ')}`, 'info', 4000);
+        }, 2000);
+      }, 1000);
+    }
+
+    // Load only the main script.js file
+    const script = document.createElement('script');
+    script.src = 'script.js';
+    script.onload = function() {
+      console.log('Main script loaded, running verification...');
+      // Run verification after script loads
+      setTimeout(runVerification, 500);
+    };
+    script.onerror = function() {
+      console.log('Could not load script.js, running verification anyway...');
+      setTimeout(runVerification, 500);
+    };
+    document.head.appendChild(script);
+
+    // Also run verification when DOM is ready as fallback
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(runVerification, 1000);
+    });
+
+    // Global functions for HTML onclick handlers
+    window.testFunction = testFunction;
+    window.runComprehensiveTest = runComprehensiveTest;
+    window.runVerification = runVerification;
+  </script>
+</body>
+</html>

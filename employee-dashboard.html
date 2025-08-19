@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Dashboard - AgentEQ</title>
+  <meta name="color-scheme" content="dark" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="agent-eq-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="agent-eq-logo.png">
+  <link rel="shortcut icon" href="agent-eq-logo.png">
+  <link rel="apple-touch-icon" href="agent-eq-logo.png">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="agenteq-icons.css">
+  <script src="lang.js"></script>
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="grid-overlay"></div>
+    <div class="floating-shapes">
+      <div class="shape"></div><div class="shape"></div><div class="shape"></div>
+      <div class="shape"></div><div class="shape"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a class="logo-container no-underline" title="AgentEQ Home">
+      <img src="agent-eq-logo.png" alt="AgentEQ Logo" class="logo-img">
+      <span>AgentEQ</span>
+    </a>
+
+    <nav id="main-nav">
+      <ul>
+        <li><a href="#customers" data-translate="customers">Customers</a></li>
+        <li><a href="#subscriptions" data-translate="subscriptions">Subscriptions</a></li>
+        <li><a href="#messages" data-translate="messages">Messages</a></li>
+        <li><a href="#reports" data-translate="reports">Reports</a></li>
+      </ul>
+    </nav>
+
+    <div class="auth-buttons">
+      <!-- زر اللغة مُنسّق: أضفت lang-btn (نفس ستايل زر اللغة بالمواقع الأخرى) -->
+      <button class="btn-secondary lang-btn" id="lang-toggle" onclick="toggleLanguage()">العربية</button>
+
+      <div class="user-menu">
+        <div class="user-avatar" id="user-avatar" onclick="toggleUserDropdown()" title="Open menu">
+          <span id="user-initials">E</span>
+        </div>
+        <div class="user-dropdown hidden" id="user-dropdown">
+          <button onclick="logout()" data-translate="logout">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <h1 style="background: var(--gradient-primary); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;" data-translate="employeeDashboard">Employee Dashboard</h1>
+        <p style="color: var(--text-secondary);" data-translate="employeeWelcome">Manage customer support and subscriptions.</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="total-customers">0</div>
+          <div class="stat-label" data-translate="totalCustomers">Total Customers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="active-subscriptions">0</div>
+          <div class="stat-label" data-translate="activeSubscriptions">Active Subscriptions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="pending-messages">0</div>
+          <div class="stat-label" data-translate="pendingMessages">Pending Messages</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="monthly-revenue">$0</div>
+          <div class="stat-label" data-translate="monthlyRevenue">Monthly Revenue</div>
+        </div>
+      </div>
+
+      <!-- Customer Management -->
+      <div class="card" id="customers">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="customerManagement">Customer Management</h3>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-translate="name">Name</th>
+                <th data-translate="email">Email</th>
+                <th data-translate="currentPlan">Current Plan</th>
+                <th data-translate="status">Status</th>
+                <th data-translate="joinDate">Join Date</th>
+                <th data-translate="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="customers-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Subscription Management -->
+      <div class="card" id="subscriptions">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="subscriptionManagement">
+            <span class="icon icon-subscriptions" aria-hidden="true"></span>
+            Subscription Management
+          </h3>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-translate="customer">Customer</th>
+                <th data-translate="plan">Plan</th>
+                <th data-translate="status">Status</th>
+                <th data-translate="startDate">Start Date</th>
+                <th data-translate="endDate">End Date</th>
+                <th data-translate="usage">Usage</th>
+                <th data-translate="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="subscriptions-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="card" id="messages">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="customerMessages">Customer Messages</h3>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-translate="name">Name</th>
+                <th data-translate="email">Email</th>
+                <th data-translate="company">Company</th>
+                <th data-translate="message">Message</th>
+                <th data-translate="date">Date</th>
+                <th data-translate="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="messages-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reports -->
+      <div class="card" id="reports">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="reports">
+            <span class="icon icon-reports" aria-hidden="true"></span>
+            Reports
+          </h3>
+        </div>
+        <div class="reports-grid">
+          <div class="report-card">
+            <h4 data-translate="subscriptionReport">Subscription Report</h4>
+            <p data-translate="subscriptionReportDesc">View subscription trends and analytics</p>
+            <button class="btn" onclick="generateSubscriptionReport()" data-translate="generate">Generate</button>
+          </div>
+          <div class="report-card">
+            <h4 data-translate="customerReport">Customer Report</h4>
+            <p data-translate="customerReportDesc">Analyze customer behavior and engagement</p>
+            <button class="btn" onclick="generateCustomerReport()" data-translate="generate">Generate</button>
+          </div>
+          <div class="report-card">
+            <h4 data-translate="revenueReport">Revenue Report</h4>
+            <p data-translate="revenueReportDesc">Track revenue and financial metrics</p>
+            <button class="btn" onclick="generateRevenueReport()" data-translate="generate">Generate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 AgentEQ. All rights reserved. | Employee Dashboard
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="employee-dashboard-enhanced.js"></script>
+</body>
+</html>

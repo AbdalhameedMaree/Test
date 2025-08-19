@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Profile - AgentEQ</title>
+  <meta name="color-scheme" content="dark" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="agent-eq-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="agent-eq-logo.png">
+  <link rel="shortcut icon" href="agent-eq-logo.png">
+  <link rel="apple-touch-icon" href="agent-eq-logo.png">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="agenteq-icons.css">
+  <script src="lang.js"></script>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="grid-overlay"></div>
+    <div class="floating-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a class="logo-container" href="index.html" title="AgentEQ Home">
+      <img src="agent-eq-logo.png" alt="AgentEQ Logo" class="logo-img">
+      <span class="logo">AgentEQ</span>
+    </a>
+
+    <nav id="main-nav">
+      <ul>
+        <li><a href="customer-dashboard.html" data-translate="dashboard">Dashboard</a></li>
+        <li><a href="#" data-translate="profile">Profile</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <button class="btn-secondary lang-btn" id="lang-toggle-user" onclick="toggleLanguage()">العربية</button>
+      <div class="user-menu">
+        <div class="user-avatar" id="user-avatar" onclick="toggleUserDropdown()">
+          <span id="user-initials">C</span>
+        </div>
+        <div class="user-dropdown hidden" id="user-dropdown">
+          <a href="index.html" data-translate="home">Home</a>
+          <a href="customer-dashboard.html" data-translate="dashboard">Dashboard</a>
+          <button onclick="logout()" data-translate="logout">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <h1 style="background: var(--gradient-primary); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;" data-translate="profile">Profile</h1>
+        <p style="color: var(--text-secondary);" data-translate="manageProfile">Manage your profile information.</p>
+      </div>
+
+      <!-- Grid -->
+      <div class="profile-grid" style="display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:start;">
+
+        <!-- Profile Picture -->
+        <div class="card profile-picture-card">
+          <h3 style="color: var(--primary);" data-translate="profilePicture">Profile Picture</h3>
+          <div class="profile-picture-container" style="display:flex;flex-direction:column;gap:1rem;align-items:center;">
+            <img id="profile-img" src="images/default-avatar.png" alt="Profile Picture" class="profile-img" style="width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid var(--border);" />
+            <input type="file" id="profile-picture-upload" accept="image/*" class="hidden">
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;">
+              <button class="btn-outline btn-sm no-icon" onclick="document.getElementById('profile-picture-upload').click()" data-translate="changePicture">Change Picture</button>
+              <button class="btn-sm btn-warning no-icon" id="remove-avatar-btn" type="button">Remove</button>
+              <button class="btn-sm btn no-icon" id="save-avatar-btn" type="button">Save</button>
+            </div>
+            <div id="avatar-hint" class="text-sm" style="color:var(--text-muted);">PNG/JPG up to 2MB</div>
+          </div>
+        </div>
+
+        <!-- Personal Information -->
+        <div class="card">
+          <h3 style="color: var(--primary);" data-translate="personalInformation">Personal Information</h3>
+          <form id="personal-info-form">
+            <div class="form-group">
+              <label class="form-label" data-translate="firstName">First Name</label>
+              <input type="text" class="form-input" id="first-name" name="first_name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-translate="lastName">Last Name</label>
+              <input type="text" class="form-input" id="last-name" name="last_name" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" data-translate="email">Email</label>
+              <input type="email" class="form-input" id="email" name="email" disabled>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Company</label>
+              <input type="text" class="form-input" id="company" name="company">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-input" id="phone" name="phone" placeholder="+1 555 000 0000">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Language</label>
+              <select class="form-input" id="pref-language" name="language">
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Timezone</label>
+              <select class="form-input" id="timezone" name="timezone">
+                <option value="UTC">UTC</option>
+                <option value="Asia/Gaza">Asia/Gaza</option>
+                <option value="Asia/Amman">Asia/Amman</option>
+                <option value="Europe/London">Europe/London</option>
+                <option value="America/New_York">America/New_York</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn" data-translate="saveChanges">Save Changes</button>
+            <div id="personal-info-msg" class="text-sm mt-4" style="color:var(--text-secondary);"></div>
+          </form>
+        </div>
+
+        <!-- Security -->
+        <div class="card">
+          <h3 style="color: var(--primary);" data-translate="security">Security</h3>
+
+          <form id="change-password-form" style="margin-bottom:1rem;">
+            <div class="form-group">
+              <label class="form-label" data-translate="currentPassword">Current Password</label>
+              <div class="password-input-container">
+                <span class="password-toggle-icon" onclick="togglePassword('current-password', this)"></span>
+                <input type="password" class="form-input" id="current-password" name="current_password" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-translate="newPassword">New Password</label>
+              <div class="password-input-container">
+                <span class="password-toggle-icon" onclick="togglePassword('new-password', this)"></span>
+                <input type="password" class="form-input" id="new-password" name="new_password" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-translate="confirmNewPassword">Confirm New Password</label>
+              <div class="password-input-container">
+                <span class="password-toggle-icon" onclick="togglePassword('confirm-new-password', this)"></span>
+                <input type="password" class="form-input" id="confirm-new-password" name="confirm_new_password" required>
+              </div>
+            </div>
+            <button type="submit" class="btn" data-translate="updatePassword">Update Password</button>
+            <div id="password-msg" class="text-sm mt-4" style="color:var(--text-secondary);"></div>
+          </form>
+
+          <div class="form-group" style="display:flex;align-items:center;gap:.5rem;">
+            <input type="checkbox" id="enable-2fa" />
+            <label for="enable-2fa" class="form-label" style="margin:0;">Enable 2FA</label>
+          </div>
+
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem;">
+            <button id="revoke-sessions-btn" class="btn-outline btn-sm no-icon" type="button">Sign out of all sessions</button>
+          </div>
+          <div id="security-msg" class="text-sm mt-4" style="color:var(--text-secondary);"></div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="card">
+          <h3 style="color: var(--primary);" data-translate="notifications">Notifications</h3>
+          <form id="notifications-form">
+            <div class="form-group" style="display:flex;align-items:center;gap:.5rem;">
+              <input type="checkbox" id="notif-product" />
+              <label for="notif-product" class="form-label" style="margin:0;">Product updates</label>
+            </div>
+            <div class="form-group" style="display:flex;align-items:center;gap:.5rem;">
+              <input type="checkbox" id="notif-billing" />
+              <label for="notif-billing" class="form-label" style="margin:0;">Billing reminders</label>
+            </div>
+            <div class="form-group" style="display:flex;align-items:center;gap:.5rem;">
+              <input type="checkbox" id="notif-usage" />
+              <label for="notif-usage" class="form-label" style="margin:0;">Usage alerts</label>
+            </div>
+            <div class="form-group" style="display:flex;align-items:center;gap:.5rem;">
+              <input type="checkbox" id="notif-security" />
+              <label for="notif-security" class="form-label" style="margin:0;">Security alerts</label>
+            </div>
+
+            <button type="submit" class="btn" data-translate="saveChanges">Save Preferences</button>
+            <div id="notifications-msg" class="text-sm mt-4" style="color:var(--text-secondary);"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 AgentEQ. All rights reserved. | Customer Profile
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="customer-profile.js"></script>
+</body>
+</html>

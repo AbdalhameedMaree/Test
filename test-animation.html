@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Success Animation</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="agent-eq-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="agent-eq-logo.png">
+  <link rel="shortcut icon" href="agent-eq-logo.png">
+  <link rel="apple-touch-icon" href="agent-eq-logo.png">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div style="padding: 2rem; text-align: center; background: var(--bg-primary); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h1 style="color: var(--text-primary); margin-bottom: 2rem;">Success Animation Test</h1>
+    
+    <div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); max-width: 800px; width: 100%;">
+      <button class="btn" onclick="testLoginAnimation()" style="padding: 1rem;">
+        Test Login Success
+      </button>
+      
+      <button class="btn" onclick="testSignupAnimation()" style="padding: 1rem;">
+        Test Signup Success
+      </button>
+      
+      <button class="btn" onclick="testSubscribeAnimation()" style="padding: 1rem;">
+        Test Subscribe Success
+      </button>
+      
+      <button class="btn" onclick="testDefaultAnimation()" style="padding: 1rem;">
+        Test Default Success
+      </button>
+    </div>
+    
+    <p style="color: var(--text-secondary); margin-top: 2rem; max-width: 600px;">
+      Click any button above to test the success animation overlay with the Agent-eq video. 
+      Each button tests a different animation type with appropriate messaging.
+    </p>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    function testLoginAnimation() {
+      showSuccessAnimation('login', () => {
+        console.log('Login animation completed!');
+      });
+    }
+    
+    function testSignupAnimation() {
+      showSuccessAnimation('signup', () => {
+        console.log('Signup animation completed!');
+      });
+    }
+    
+    function testSubscribeAnimation() {
+      showSuccessAnimation('subscribe', () => {
+        console.log('Subscribe animation completed!');
+      });
+    }
+    
+    function testDefaultAnimation() {
+      showSuccessAnimation('default', () => {
+        console.log('Default animation completed!');
+      });
+    }
+  </script>
+</body>
+</html>

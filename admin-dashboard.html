@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - AgentEQ</title>
+  <meta name="color-scheme" content="dark" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="agent-eq-logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="agent-eq-logo.png">
+  <link rel="shortcut icon" href="agent-eq-logo.png">
+  <link rel="apple-touch-icon" href="agent-eq-logo.png">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="agenteq-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="lang.js"></script>
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="grid-overlay"></div>
+    <div class="floating-shapes">
+      <div class="shape"></div><div class="shape"></div><div class="shape"></div>
+      <div class="shape"></div><div class="shape"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a class="logo-container no-underline" href="index.html" title="AgentEQ Home">
+      <img src="agent-eq-logo.png" alt="AgentEQ Logo" class="logo-img">
+      <span>AgentEQ</span>
+    </a>
+
+    <nav id="main-nav">
+      <ul>
+        <li><a href="#employees" data-translate="employees">Employees</a></li>
+        <li><a href="#users" data-translate="users">Users</a></li>
+        <li><a href="#plans" data-translate="plans">Plans</a></li>
+        <li><a href="#reviews" data-translate="reviews">Reviews</a></li>
+        <li><a href="#messages" data-translate="messages">Messages</a></li>
+      </ul>
+    </nav>
+
+    <div class="auth-buttons">
+      <button class="btn-secondary lang-btn" id="lang-toggle" onclick="toggleLanguage()">العربية</button>
+      <div class="user-menu">
+        <div class="user-avatar" id="user-avatar" onclick="toggleUserDropdown()" title="Open menu">
+          <span id="user-initials">A</span>
+        </div>
+        <div class="user-dropdown hidden" id="user-dropdown">
+          <button onclick="logout()" data-translate="logout">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <h1 style="background: var(--gradient-primary); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;" data-translate="adminDashboard">Admin Dashboard</h1>
+        <p style="color: var(--text-secondary);" data-translate="adminWelcome">Manage users, plans, and system settings.</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="dashboard-grid">
+        <div class="stat-card"><div class="stat-value" id="total-users">0</div><div class="stat-label" data-translate="totalUsers">Total Users</div></div>
+        <div class="stat-card"><div class="stat-value" id="active-subscriptions">0</div><div class="stat-label" data-translate="activeSubscriptions">Active Subscriptions</div></div>
+        <div class="stat-card"><div class="stat-value" id="total-revenue">$0</div><div class="stat-label" data-translate="totalRevenue">Total Revenue</div></div>
+        <div class="stat-card"><div class="stat-value" id="unread-messages">0</div><div class="stat-label" data-translate="unreadMessages">Unread Messages</div></div>
+        <div class="stat-card"><div class="stat-value" id="new-users-month">0</div><div class="stat-label" data-translate="newUsersMonth">New Users This Month</div></div>
+        <div class="stat-card"><div class="stat-value" id="average-rating">0/5</div><div class="stat-label" data-translate="averageRating">Average Rating</div></div>
+        <div class="stat-card"><div class="stat-value" id="total-reviews">0</div><div class="stat-label" data-translate="totalReviews">Total Reviews</div></div>
+      </div>
+
+      <!-- Charts -->
+      <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
+        <div class="card">
+          <div class="card-header"><h3 style="color: var(--primary);">Subscription Distribution</h3></div>
+          <div class="chart-container">
+            <canvas id="subscription-chart" width="400" height="300"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3 style="color: var(--primary);">Monthly Revenue</h3></div>
+          <div class="chart-container">
+            <canvas id="revenue-chart" width="400" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Performance Chart -->
+      <div class="card" style="margin-bottom: 2rem;">
+        <div class="card-header"><h3 style="color: var(--primary);">Plan Performance</h3></div>
+        <div class="chart-container">
+          <canvas id="plan-performance-chart" width="800" height="400"></canvas>
+        </div>
+      </div>
+
+      <!-- Employees -->
+      <div class="card" id="employees">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="employeeManagement">Employee Management</h3>
+          <div style="display: flex; gap: 1rem;">
+            <button class="btn" onclick="showAddEmployeeModal()" data-translate="addEmployee">Add Employee</button>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-translate="name">Name</th>
+                <th data-translate="email">Email</th>
+                <th data-translate="role">Role</th>
+                <th data-translate="status">Status</th>
+                <th data-translate="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="employees-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Users -->
+      <div class="card" id="users">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="userManagement">User Management</h3>
+          <div style="display: flex; gap: 1rem;">
+            <button class="btn" onclick="showAddUserModal()" data-translate="addUser">Add User</button>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-translate="name">Name</th>
+                <th data-translate="email">Email</th>
+                <th data-translate="plan">Plan</th>
+                <th data-translate="status">Status</th>
+                <th data-translate="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Plans -->
+      <div class="card" id="plans">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="planManagement">Plan Management</h3>
+          <button class="btn" onclick="showAddPlanModal()" data-translate="addPlan">Add Plan</button>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-translate="planName">Plan Name</th>
+                <th data-translate="price">Price</th>
+                <th data-translate="conversations">Conversations</th>
+                <th data-translate="status">Status</th>
+                <th data-translate="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="plans-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="card" id="reviews">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="reviewManagement">Review Management</h3>
+          <button class="btn" onclick="showAddReviewModal()" data-translate="addReview">Add Review</button>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-translate="company">Company</th>
+                <th data-translate="review">Review</th>
+                <th data-translate="rating">Rating</th>
+                <th data-translate="featured">Featured</th>
+                <th data-translate="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="reviews-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="card" id="messages">
+        <div class="card-header">
+          <h3 style="color: var(--primary);" data-translate="contactMessages">Contact Messages</h3>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-translate="name">Name</th>
+                <th data-translate="email">Email</th>
+                <th data-translate="company">Company</th>
+                <th data-translate="message">Message</th>
+                <th data-translate="date">Date</th>
+                <th data-translate="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="messages-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 AgentEQ. All rights reserved. | Admin Dashboard
+  </footer>
+
+  <!-- Modals -->
+  <!-- Add Employee Modal -->
+  <div id="addEmployeeModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add New Employee</h3>
+        <button class="modal-close" onclick="closeModal('addEmployeeModal')">&times;</button>
+      </div>
+      <form id="addEmployeeForm" onsubmit="submitAddEmployee(event)">
+        <div class="form-group">
+          <label for="emp_first_name">First Name</label>
+          <input type="text" id="emp_first_name" name="first_name" required>
+        </div>
+        <div class="form-group">
+          <label for="emp_last_name">Last Name</label>
+          <input type="text" id="emp_last_name" name="last_name" required>
+        </div>
+        <div class="form-group">
+          <label for="emp_email">Email</label>
+          <input type="email" id="emp_email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="emp_password">Password</label>
+          <input type="password" id="emp_password" name="password" required minlength="8">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('addEmployeeModal')">Cancel</button>
+          <button type="submit" class="btn">Add Employee</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add User Modal -->
+  <div id="addUserModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add New User</h3>
+        <button class="modal-close" onclick="closeModal('addUserModal')">&times;</button>
+      </div>
+      <form id="addUserForm" onsubmit="submitAddUser(event)">
+        <div class="form-group">
+          <label for="user_first_name">First Name</label>
+          <input type="text" id="user_first_name" name="first_name" required>
+        </div>
+        <div class="form-group">
+          <label for="user_last_name">Last Name</label>
+          <input type="text" id="user_last_name" name="last_name" required>
+        </div>
+        <div class="form-group">
+          <label for="user_email">Email</label>
+          <input type="email" id="user_email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="user_password">Password</label>
+          <input type="password" id="user_password" name="password" required minlength="8">
+        </div>
+        <div class="form-group">
+          <label for="user_role">Role</label>
+          <select id="user_role" name="role" required>
+            <option value="customer">Customer</option>
+            <option value="employee">Employee</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('addUserModal')">Cancel</button>
+          <button type="submit" class="btn">Add User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Plan Modal -->
+  <div id="addPlanModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add New Plan</h3>
+        <button class="modal-close" onclick="closeModal('addPlanModal')">&times;</button>
+      </div>
+      <form id="addPlanForm" onsubmit="submitAddPlan(event)">
+        <div class="form-group">
+          <label for="plan_name">Plan Name</label>
+          <input type="text" id="plan_name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="plan_description">Description</label>
+          <textarea id="plan_description" name="description" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="plan_price">Price</label>
+          <input type="number" id="plan_price" name="price" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="plan_billing">Billing Period</label>
+          <select id="plan_billing" name="billing_period" required>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="plan_conversations">Max Conversations</label>
+          <input type="number" id="plan_conversations" name="max_conversations">
+          <small>Leave empty for unlimited</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('addPlanModal')">Cancel</button>
+          <button type="submit" class="btn">Add Plan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Review Modal -->
+  <div id="addReviewModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add New Review</h3>
+        <button class="modal-close" onclick="closeModal('addReviewModal')">&times;</button>
+      </div>
+      <form id="addReviewForm" onsubmit="submitAddReview(event)">
+        <div class="form-group">
+          <label for="review_name">Customer Name</label>
+          <input type="text" id="review_name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="review_email">Email</label>
+          <input type="email" id="review_email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="review_rating">Rating</label>
+          <select id="review_rating" name="rating" required>
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="review_title">Title</label>
+          <input type="text" id="review_title" name="title">
+        </div>
+        <div class="form-group">
+          <label for="review_content">Review Content</label>
+          <textarea id="review_content" name="content" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="review_approved" name="is_approved" checked>
+            Approve Review
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="review_featured" name="is_featured">
+            Feature Review
+          </label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('addReviewModal')">Cancel</button>
+          <button type="submit" class="btn">Add Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Modal (Generic) -->
+  <div id="editModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="editModalTitle">Edit Item</h3>
+        <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
+      </div>
+      <div id="editModalBody">
+        <!-- Dynamic content will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- View Message Modal -->
+  <div id="viewMessageModal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Contact Message</h3>
+        <button class="modal-close" onclick="closeModal('viewMessageModal')">&times;</button>
+      </div>
+      <div id="messageModalBody">
+        <!-- Message content will be loaded here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModal('viewMessageModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- مهم: حمّل السكربت العام قبل سكربت الأدمن -->
+  <script src="script.js"></script>
+  <script src="admin-dashboard-enhanced.js"></script>
+</body>
+</html>
